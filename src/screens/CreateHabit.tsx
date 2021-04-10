@@ -6,12 +6,14 @@ import {
 } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 
+import * as colours from "../colours";
 import HabitForm from "../components/HabitForm";
+import Heading from "../components/Heading";
 import IconSelectScreen from "./IconSelect";
 import { ActionKind, Habit } from "../store";
+import { Day } from "../day";
 import { Icon } from "../icons";
 import { useDispatch } from "../context";
-import { Day } from "../day";
 
 type CreateHabitStackParamList = {
   CreateHabit: { icon: Icon } | undefined;
@@ -58,12 +60,19 @@ const CreateHabit: React.FunctionComponent<CreateHabitProps> = ({
   }
 
   return (
-    <ScrollView style={{ padding: 16 }}>
+    <ScrollView
+      style={{
+        paddingVertical: 32,
+        paddingHorizontal: 24,
+        background: colours.grey900,
+      }}
+    >
+      <Heading style={{ marginBottom: 16 }}>Start a new habit</Heading>
+
       <HabitForm
         habit={{ name: "", days: [...defaultDays], icon }}
         onSave={handleSubmit}
         openIconSelect={openIconSelect}
-        submitMessage="Create new habit"
       />
     </ScrollView>
   );

@@ -1,5 +1,8 @@
 import React from "react";
-import { Button, View } from "react-native";
+import { Pressable, View } from "react-native";
+import { MinusIcon } from "@heroicons/react/outline";
+
+import * as colours from "../colours";
 import { Icon, iconToComponent } from "../icons";
 
 interface IconInputProps {
@@ -14,14 +17,24 @@ const IconInput: React.FunctionComponent<IconInputProps> = ({
   const Icon = icon && iconToComponent[icon];
 
   return (
-    <View>
-      {Icon && (
-        <View style={{ padding: 16 }}>
-          <Icon width={28} height={28} />
-        </View>
+    <Pressable
+      onPress={onOpen}
+      style={{
+        cursor: "pointer",
+        borderRadius: 4,
+        background: colours.grey800,
+        width: 48,
+        height: 48,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {Icon ? (
+        <Icon width={28} height={28} style={{ color: colours.yellow }} />
+      ) : (
+        <MinusIcon width={28} height={28} style={{ color: colours.grey300 }} />
       )}
-      <Button title="Open icon select" onPress={onOpen} />
-    </View>
+    </Pressable>
   );
 };
 

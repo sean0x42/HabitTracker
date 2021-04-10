@@ -7,8 +7,10 @@ import {
   PencilAltIcon,
 } from "@heroicons/react/outline";
 
+import * as colours from "./src/colours";
 import DailyRundownScreen from "./src/screens/DailyRundown";
 import CreateHabitScreen from "./src/screens/CreateHabit";
+import TabBar from "./src/components/TabBar";
 import ViewHabitsScreen from "./src/screens/ViewHabits";
 import { initialState, reducer } from "./src/store";
 import { StoreContext } from "./src/context";
@@ -21,7 +23,10 @@ const App: React.FunctionComponent = () => {
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       <NavigationContainer>
-        <Tabs.Navigator initialRouteName="DailyRundown">
+        <Tabs.Navigator
+          initialRouteName="DailyRundown"
+          tabBar={(props) => <TabBar {...props} />}
+        >
           <Tabs.Screen
             name="DailyRundown"
             component={DailyRundownScreen}

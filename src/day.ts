@@ -22,3 +22,13 @@ const numberToDay: Record<DayNumbers, Day> = {
   5: Day.Friday,
   6: Day.Saturday,
 };
+
+export const dayToHuman: Record<Day, string> = {
+  [Day.Sunday]: "Sunday",
+  [Day.Monday]: "Monday",
+  [Day.Tuesday]: "Tuesday",
+  [Day.Wednesday]: "Wednesday",
+  [Day.Thursday]: "Thursday",
+  [Day.Friday]: "Friday",
+  [Day.Saturday]: "Saturday",
+};

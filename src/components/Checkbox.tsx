@@ -1,7 +1,8 @@
 import React from "react";
 import { CheckIcon } from "@heroicons/react/outline";
-import { Pressable } from "react-native";
+import { View } from "react-native";
 
+import * as colours from "../colours";
 import { useDispatch } from "../context";
 import { ActionKind } from "../store";
 
@@ -10,33 +11,19 @@ interface CheckboxProps {
   isChecked: boolean;
 }
 
-const Checkbox: React.FunctionComponent<CheckboxProps> = (props) => {
-  const dispatch = useDispatch();
-
-  function onCheck() {
-    dispatch({
-      kind: props.isChecked
-        ? ActionKind.UndoCompleteHabit
-        : ActionKind.CompleteHabit,
-      payload: props.id,
-    });
-  }
-
-  return (
-    <Pressable
-      style={{
-        padding: 4,
-        borderColor: "#bbb",
-        borderWidth: 2,
-        borderRadius: 3,
-        width: 40,
-        height: 40,
-      }}
-      onPress={onCheck}
-    >
-      {props.isChecked && <CheckIcon width={28} height={28} />}
-    </Pressable>
-  );
-};
+const Checkbox: React.FunctionComponent<CheckboxProps> = (props) => (
+  <View
+    style={{
+      borderRadius: 3,
+      width: 28,
+      height: 28,
+      background: colours.grey700,
+    }}
+  >
+    {props.isChecked && (
+      <CheckIcon width={28} height={28} style={{ color: colours.yellow }} />
+    )}
+  </View>
+);
 
 export default Checkbox;

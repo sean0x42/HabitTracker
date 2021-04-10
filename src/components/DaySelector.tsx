@@ -1,5 +1,8 @@
 import React from "react";
-import { Button, View } from "react-native";
+import { Pressable, View } from "react-native";
+
+import * as colours from "../colours";
+import Text from "./Text";
 import { Day } from "../day";
 
 interface DayButtonProps {
@@ -9,22 +12,46 @@ interface DayButtonProps {
 }
 
 const labelMap: Record<Day, string> = {
-  [Day.Monday]: "Monday",
-  [Day.Tuesday]: "Tuesday",
-  [Day.Wednesday]: "Wednesday",
-  [Day.Thursday]: "Thursday",
-  [Day.Friday]: "Friday",
-  [Day.Saturday]: "Saturday",
-  [Day.Sunday]: "Sunday",
+  [Day.Sunday]: "S",
+  [Day.Monday]: "M",
+  [Day.Tuesday]: "T",
+  [Day.Wednesday]: "W",
+  [Day.Thursday]: "T",
+  [Day.Friday]: "F",
+  [Day.Saturday]: "S",
 };
 
-const DayButton: React.FunctionComponent<DayButtonProps> = (props) => (
-  <Button
-    title={labelMap[props.day]}
-    onPress={() => props.onToggle(props.day)}
-    color={props.selectedDays.includes(props.day) ? "blue" : "red"}
-  />
-);
+const DayButton: React.FunctionComponent<DayButtonProps> = (props) => {
+  const isChecked = props.selectedDays.includes(props.day);
+
+  return (
+    <Pressable
+      onPress={() => props.onToggle(props.day)}
+      style={{
+        cursor: "pointer",
+        borderRadius: 16,
+        width: 32,
+        height: 32,
+        background: isChecked ? colours.yellow : colours.grey700,
+        color: isChecked ? colours.grey900 : colours.grey200,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text
+        style={{
+          lineHeight: 1,
+          fontSize: 16,
+          fontWeight: "500",
+          color: isChecked ? colours.grey900 : colours.grey200,
+          textAlign: "center",
+        }}
+      >
+        {labelMap[props.day]}
+      </Text>
+    </Pressable>
+  );
+};
 
 interface DaySelectorProps {
   selectedDays: Day[];
@@ -45,7 +72,20 @@ const DaySelector: React.FunctionComponent<DaySelectorProps> = (props) => {
   }
 
   return (
-    <View>
+    <View
+      style={{
+        background: colours.grey800,
+        borderRadius: 4,
+        padding: 12,
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
+    >
+      <DayButton
+        selectedDays={props.selectedDays}
+        day={Day.Sunday}
+        onToggle={toggleDay}
+      />
       <DayButton
         selectedDays={props.selectedDays}
         day={Day.Monday}
@@ -74,11 +114,6 @@ const DaySelector: React.FunctionComponent<DaySelectorProps> = (props) => {
       <DayButton
         selectedDays={props.selectedDays}
         day={Day.Saturday}
-        onToggle={toggleDay}
-      />
-      <DayButton
-        selectedDays={props.selectedDays}
-        day={Day.Sunday}
         onToggle={toggleDay}
       />
     </View>
