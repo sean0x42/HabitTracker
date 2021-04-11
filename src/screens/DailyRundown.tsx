@@ -7,6 +7,7 @@ import Blob from "../components/Blob";
 import Checkbox from "../components/Checkbox";
 import Eyebrow from "../components/Eyebrow";
 import Heading from "../components/Heading";
+import Layout from "../components/Layout";
 import NoHabitsTodayMessage from "../components/NoHabitsTodayMessage";
 import ProgressBar from "../components/ProgressBar";
 import Text from "../components/Text";
@@ -50,8 +51,8 @@ const HabitTodo: React.FunctionComponent<HabitTodoProps> = (props) => {
       }}
     >
       <Icon
-        width={28}
-        height={28}
+        width={24}
+        height={24}
         style={{
           color: isChecked ? colours.grey400 : colours.yellow,
           marginRight: 12,
@@ -96,15 +97,9 @@ function DailyRundownScreen() {
   const heading = dayjs().format("dddd, MMMM D");
 
   return (
-    <ScrollView
-      style={{
-        paddingVertical: 32,
-        paddingHorizontal: 24,
-        background: colours.grey900,
-      }}
-    >
+    <Layout>
       <Eyebrow>Daily Breakdown</Eyebrow>
-      <Heading style={{ marginTop: 4, marginBottom: 24 }}>{heading}</Heading>
+      <Heading style={{ marginBottom: 24 }}>{heading}</Heading>
 
       {incompleteHabits.map((habit) => (
         <HabitTodo key={habit.id} habit={habit} />
@@ -119,8 +114,9 @@ function DailyRundownScreen() {
               top: "40%",
               color: colours.white,
               textAlign: "center",
-              fontSize: 22,
+              fontSize: 21,
               fontWeight: "500",
+              lineHeight: "110%",
               paddingHorizontal: 24,
             }}
           >
@@ -149,7 +145,7 @@ function DailyRundownScreen() {
       ))}
 
       {todaysHabits.length === 0 && <NoHabitsTodayMessage />}
-    </ScrollView>
+    </Layout>
   );
 }
 

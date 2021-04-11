@@ -18,10 +18,12 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = (props) => (
       width: 28,
       height: 28,
       background: colours.grey700,
+      alignItems: "center",
+      justifyContent: "center",
     }}
   >
     {props.isChecked && (
-      <CheckIcon width={28} height={28} style={{ color: colours.yellow }} />
+      <CheckIcon width={24} height={24} style={{ color: colours.yellow }} />
     )}
   </View>
 );

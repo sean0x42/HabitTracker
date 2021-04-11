@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import * as colours from "../colours";
+import Box from "./Box";
 import Button from "./Button";
 import DaySelector from "./DaySelector";
 import Field from "./Field";
@@ -9,6 +10,7 @@ import IconInput from "./IconInput";
 import Textbox from "./Textbox";
 import { Habit } from "../store";
 import { useValidationState } from "../useValidationState";
+import Stack from "./Stack";
 
 interface HabitFormProps {
   habit: {
@@ -58,7 +60,7 @@ const HabitForm: React.FunctionComponent<HabitFormProps> = (props) => {
   }
 
   return (
-    <View>
+    <Stack space={12}>
       <Field
         label="Name"
         help="What would you like to do?"
@@ -83,7 +85,7 @@ const HabitForm: React.FunctionComponent<HabitFormProps> = (props) => {
       </Field>
 
       <Field
-        label="Active Days"
+        label="Days"
         help="Which days of the week do you need to do this habit?"
         error="Please select at least one day"
         isValid={isActiveDaysValid}
@@ -92,10 +94,12 @@ const HabitForm: React.FunctionComponent<HabitFormProps> = (props) => {
         <DaySelector selectedDays={days} setDays={setDays} />
       </Field>
 
-      <Button onPress={handleSubmit} style={{ marginTop: 32 }}>
-        {props.submitMessage ?? "Create habit"}
-      </Button>
-    </View>
+      <Box marginTop={12}>
+        <Button onPress={handleSubmit}>
+          {props.submitMessage ?? "Create habit"}
+        </Button>
+      </Box>
+    </Stack>
   );
 };
 

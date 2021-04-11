@@ -2,6 +2,8 @@ import React from "react";
 import { View } from "react-native";
 
 import * as colours from "../colours";
+import Box from "./Box";
+import Copy from "./Copy";
 import Text from "./Text";
 
 interface FieldProps {
@@ -13,23 +15,17 @@ interface FieldProps {
 }
 
 const Field: React.FunctionComponent<FieldProps> = (props) => (
-  <View style={{ marginVertical: 12 }}>
-    <Text style={{ marginBottom: 4, color: colours.white, fontWeight: "500" }}>
-      {props.label}
-    </Text>
+  <View>
+    <Copy variant="bold">{props.label}</Copy>
 
-    {props.help && (
-      <Text style={{ marginBottom: 4, color: colours.grey200 }}>
-        {props.help}
-      </Text>
-    )}
+    {props.help && <Copy variant="light">{props.help}</Copy>}
 
-    <View style={{ marginTop: 8 }}>{props.children}</View>
+    <Box marginVertical={4}>
+      <View>{props.children}</View>
+    </Box>
 
     {props.isValidated && !props.isValid && props.error && (
-      <Text style={{ color: colours.red, marginTop: 12, fontWeight: "500" }}>
-        {props.error}
-      </Text>
+      <Copy variant="danger">{props.error}</Copy>
     )}
   </View>
 );

@@ -5,11 +5,14 @@ import {
   StackNavigationProp,
 } from "@react-navigation/stack";
 
-import { useSelector } from "../context";
-import { Icon, iconToComponent } from "../icons";
-import { Habit } from "../store";
+import * as colours from "../colours";
 import EditHabitScreen from "./EditHabit";
+import Heading from "../components/Heading";
 import IconSelectScreen from "./IconSelect";
+import Layout from "../components/Layout";
+import { Habit } from "../store";
+import { Icon, iconToComponent } from "../icons";
+import { useSelector } from "../context";
 
 interface HabitProps {
   habit: Habit;
@@ -23,16 +26,24 @@ const HabitItem: React.FunctionComponent<HabitProps> = (props) => {
     <Pressable
       onPress={() => props.onPress(props.habit.id)}
       style={{
+        cursor: "pointer",
         flexDirection: "row",
         alignItems: "center",
         padding: 16,
         marginBottom: 8,
-        backgroundColor: "white",
-        borderRadius: 3,
+        backgroundColor: colours.grey800,
+        borderRadius: 4,
       }}
     >
-      <Icon width={28} height={28} style={{ marginRight: 8 }} />
-      <Text>{props.habit.name}</Text>
+      <Icon
+        width={24}
+        height={24}
+        style={{ marginRight: 12, color: colours.yellow }}
+      />
+
+      <Text style={{ flexGrow: 1, color: colours.white, fontWeight: "500" }}>
+        {props.habit.name}
+      </Text>
     </Pressable>
   );
 };
@@ -51,11 +62,13 @@ const ViewHabits: React.FunctionComponent<ViewHabitsProps> = ({
   }
 
   return (
-    <ScrollView style={{ padding: 16 }}>
+    <Layout>
+      <Heading style={{ marginBottom: 24 }}>My Habits</Heading>
+
       {Object.values(habits).map((habit) => (
         <HabitItem key={habit.id} habit={habit} onPress={handleHabitPress} />
       ))}
-    </ScrollView>
+    </Layout>
   );
 };
 
@@ -73,7 +86,7 @@ export type ViewHabitStackParams = {
 const ViewHabitsStack = createStackNavigator<ViewHabitStackParams>();
 
 const ViewHabitsScreen = () => (
-  <ViewHabitsStack.Navigator initialRouteName="ViewHabits">
+  <ViewHabitsStack.Navigator initialRouteName="ViewHabits" headerMode="none">
     <ViewHabitsStack.Screen
       name="ViewHabits"
       component={ViewHabits}

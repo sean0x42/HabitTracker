@@ -27,7 +27,7 @@ export const initialState: AppState = {
     1: {
       id: 1,
       name: "Take out the trash",
-      days: [Day.Thursday, Day.Saturday],
+      days: [Day.Thursday, Day.Saturday, Day.Sunday],
       icon: Icon.Trash,
     },
   },

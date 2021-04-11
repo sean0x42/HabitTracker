@@ -15,6 +15,7 @@ const Eyebrow: React.FunctionComponent<EyebrowProps> = (props) => (
       fontWeight: "bold",
       textTransform: "uppercase",
       letterSpacing: 2,
+      marginBottom: 4,
       ...props.styles,
     }}
   >

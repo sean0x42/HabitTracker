@@ -30,9 +30,9 @@ const IconInput: React.FunctionComponent<IconInputProps> = ({
       }}
     >
       {Icon ? (
-        <Icon width={28} height={28} style={{ color: colours.yellow }} />
+        <Icon width={24} height={24} style={{ color: colours.yellow }} />
       ) : (
-        <MinusIcon width={28} height={28} style={{ color: colours.grey300 }} />
+        <MinusIcon width={24} height={24} style={{ color: colours.grey300 }} />
       )}
     </Pressable>
   );

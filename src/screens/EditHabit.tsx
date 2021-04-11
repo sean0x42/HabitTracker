@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 
+import Button from "../components/Button";
+import Copy from "../components/Copy";
+import Eyebrow from "../components/Eyebrow";
 import HabitForm from "../components/HabitForm";
+import Heading from "../components/Heading";
+import Layout from "../components/Layout";
+import Stack from "../components/Stack";
 import { ActionKind, Habit } from "../store";
+import { Icon } from "../icons";
 import { ViewHabitStackParams } from "./ViewHabits";
 import { useDispatch, useSelector } from "../context";
-import { Icon } from "../icons";
+import Box from "../components/Box";
+import BackButton from "../components/BackButton";
 
 interface EditHabitProps {
   route: RouteProp<ViewHabitStackParams, "EditHabit">;
@@ -44,14 +52,33 @@ const EditHabitScreen: React.FunctionComponent<EditHabitProps> = ({
   }
 
   return (
-    <ScrollView style={{ padding: 16 }}>
-      <HabitForm
-        habit={{ ...habit, icon: icon ?? habit.icon }}
-        onSave={handleSave}
-        openIconSelect={openIconSelect}
-        submitMessage="Save changes"
-      />
-    </ScrollView>
+    <Layout>
+      <Stack space={24}>
+        <BackButton />
+        <View>
+          <Eyebrow>Edit Habit</Eyebrow>
+          <Heading>{habit.name}</Heading>
+        </View>
+
+        <HabitForm
+          habit={{ ...habit, icon: icon ?? habit.icon }}
+          onSave={handleSave}
+          openIconSelect={openIconSelect}
+          submitMessage="Update habit"
+        />
+      </Stack>
+
+      <Box marginTop={64} marginBottom={24}>
+        <Stack space={12}>
+          <Stack space={4}>
+            <Heading level={2}>Danger Zone</Heading>
+            <Copy>Warning! These actions cannot be undone.</Copy>
+          </Stack>
+
+          <Button variant="danger">Delete this task</Button>
+        </Stack>
+      </Box>
+    </Layout>
   );
 };
 
