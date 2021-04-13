@@ -3,6 +3,7 @@ import { Linking } from "react-native";
 
 import Button from "../components/Button";
 import Copy from "../components/Copy";
+import Eyebrow from "../components/Eyebrow";
 import Heading from "../components/Heading";
 import Layout from "../components/Layout";
 import Link from "../components/Link";
@@ -15,7 +16,8 @@ const DonateScreen: React.FunctionComponent = () => {
 
   return (
     <Layout>
-      <Heading style={{ marginBottom: 16 }}>Donate</Heading>
+      <Eyebrow>Donate</Eyebrow>
+      <Heading style={{ marginBottom: 16 }}>Support Habit Tracker</Heading>
 
       <Stack space={16}>
         <Copy>👋 Hi</Copy>

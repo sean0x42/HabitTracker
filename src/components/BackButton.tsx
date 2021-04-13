@@ -15,7 +15,13 @@ const BackButton: React.FunctionComponent = () => {
 
   return (
     <Pressable
-      style={{ cursor: "pointer", alignItems: "center", flexDirection: "row" }}
+      style={{
+        cursor: "pointer",
+        alignItems: "center",
+        flexDirection: "row",
+        paddingVertical: 8,
+        marginTop: -8,
+      }}
       onPress={handlePress}
     >
       <ArrowNarrowLeftIcon

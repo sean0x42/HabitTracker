@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Pressable, ScrollView, Text } from "react-native";
 import {
   createStackNavigator,
@@ -12,7 +13,6 @@ import IconSelectScreen from "./IconSelect";
 import Layout from "../components/Layout";
 import { Habit } from "../store";
 import { Icon, iconToComponent } from "../icons";
-import { useSelector } from "../context";
 
 interface HabitProps {
   habit: Habit;
@@ -55,7 +55,7 @@ interface ViewHabitsProps {
 const ViewHabits: React.FunctionComponent<ViewHabitsProps> = ({
   navigation,
 }) => {
-  const habits = useSelector((state) => state.habits);
+  const habits = useSelector((state) => state.habits.byId);
 
   function handleHabitPress(id: number) {
     navigation.navigate("EditHabit", { id });

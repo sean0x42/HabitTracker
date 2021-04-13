@@ -1,8 +1,13 @@
 import React from "react";
 import { ScrollView } from "react-native";
-import * as colours from "../colours";
 
-const Layout: React.FunctionComponent = (props) => (
+import * as colours from "../colours";
+import Box from "./Box";
+import CreateHabitButton from "./CreateHabitButton";
+
+interface LayoutProps {}
+
+const Layout: React.FunctionComponent<LayoutProps> = (props) => (
   <ScrollView
     style={{
       paddingVertical: 32,
@@ -10,7 +15,7 @@ const Layout: React.FunctionComponent = (props) => (
       background: colours.grey900,
     }}
   >
-    {props.children}
+    <Box marginBottom={32}>{props.children}</Box>
   </ScrollView>
 );
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import {
   createStackNavigator,
   StackNavigationProp,
@@ -7,13 +7,17 @@ import {
 import { RouteProp } from "@react-navigation/native";
 
 import * as colours from "../colours";
+import BackButton from "../components/BackButton";
+import Eyebrow from "../components/Eyebrow";
 import HabitForm from "../components/HabitForm";
 import Heading from "../components/Heading";
 import IconSelectScreen from "./IconSelect";
-import { ActionKind, Habit } from "../store";
+import Layout from "../components/Layout";
+import Stack from "../components/Stack";
 import { Day } from "../day";
 import { Icon } from "../icons";
-import { useDispatch } from "../context";
+import { createHabit } from "../store/habitSlice";
+import { useDispatch } from '../app/hooks';
 
 type CreateHabitStackParamList = {
   CreateHabit: { icon: Icon } | undefined;
@@ -45,10 +49,8 @@ const CreateHabit: React.FunctionComponent<CreateHabitProps> = ({
   const icon = route.params?.icon;
 
   function handleSubmit(habit: Omit<Habit, "id">) {
-    dispatch({
-      kind: ActionKind.CreateHabit,
-      payload: habit,
-    });
+    dispatch(createHabit(habit));
+    navigation.navigate("DailyRundown");
   }
 
   function openIconSelect() {
@@ -60,26 +62,26 @@ const CreateHabit: React.FunctionComponent<CreateHabitProps> = ({
   }
 
   return (
-    <ScrollView
-      style={{
-        paddingVertical: 32,
-        paddingHorizontal: 24,
-        background: colours.grey900,
-      }}
-    >
-      <Heading style={{ marginBottom: 16 }}>Start a new habit</Heading>
+    <Layout>
+      <Stack space={24}>
+        <BackButton />
+        <View>
+          <Eyebrow>Create habit</Eyebrow>
+          <Heading>Start a new habit</Heading>
+        </View>
 
-      <HabitForm
-        habit={{ name: "", days: [...defaultDays], icon }}
-        onSave={handleSubmit}
-        openIconSelect={openIconSelect}
-      />
-    </ScrollView>
+        <HabitForm
+          habit={{ name: "", days: [...defaultDays], icon }}
+          onSave={handleSubmit}
+          openIconSelect={openIconSelect}
+        />
+      </Stack>
+    </Layout>
   );
 };
 
 const CreateHabitScreen: React.FunctionComponent = () => (
-  <CreateHabitStack.Navigator initialRouteName="CreateHabit">
+  <CreateHabitStack.Navigator initialRouteName="CreateHabit" headerMode="none">
     <CreateHabitStack.Screen
       name="CreateHabit"
       component={CreateHabit}

@@ -3,6 +3,8 @@ import { View, ScrollView } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 
+import BackButton from "../components/BackButton";
+import Box from "../components/Box";
 import Button from "../components/Button";
 import Copy from "../components/Copy";
 import Eyebrow from "../components/Eyebrow";
@@ -10,12 +12,10 @@ import HabitForm from "../components/HabitForm";
 import Heading from "../components/Heading";
 import Layout from "../components/Layout";
 import Stack from "../components/Stack";
-import { ActionKind, Habit } from "../store";
+import { Habit, updateHabit } from "../store/habitSlice";
 import { Icon } from "../icons";
 import { ViewHabitStackParams } from "./ViewHabits";
-import { useDispatch, useSelector } from "../context";
-import Box from "../components/Box";
-import BackButton from "../components/BackButton";
+import { useDispatch, useSelector } from "../app/hooks";
 
 interface EditHabitProps {
   route: RouteProp<ViewHabitStackParams, "EditHabit">;
@@ -29,17 +29,16 @@ const EditHabitScreen: React.FunctionComponent<EditHabitProps> = ({
   const { id, icon } = route.params;
   const dispatch = useDispatch();
 
-  const habit = useSelector((state) => state.habits[id]);
+  const habit = useSelector((state) => state.habits.byId[id]);
 
   function handleSave(habit: Omit<Habit, "id">) {
-    dispatch({
-      kind: ActionKind.UpdateHabit,
-      payload: {
+    dispatch(
+      updateHabit({
         id,
         ...habit,
         icon: icon ?? habit.icon,
-      },
-    });
+      })
+    );
     navigation.navigate("ViewHabits");
   }
 
@@ -68,7 +67,7 @@ const EditHabitScreen: React.FunctionComponent<EditHabitProps> = ({
         />
       </Stack>
 
-      <Box marginTop={64} marginBottom={24}>
+      <Box marginTop={64}>
         <Stack space={12}>
           <Stack space={4}>
             <Heading level={2}>Danger Zone</Heading>

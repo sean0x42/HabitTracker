@@ -16,7 +16,7 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = (props) => {
       style={{
         borderRadius: 8,
         height: 8,
-        width: "50%",
+        flexGrow: 1,
         background: colours.grey800,
         overflow: "hidden",
       }}

@@ -7,13 +7,13 @@ import { Pressable, View } from "react-native";
 import {
   CalendarIcon,
   ClipboardListIcon,
-  PlusIcon,
   PresentationChartBarIcon,
   SparklesIcon,
 } from "@heroicons/react/outline";
 
 import * as colours from "../colours";
 import Text from "./Text";
+import CreateHabitButton from "./CreateHabitButton";
 
 interface NavButtonProps {
   icon: React.ComponentType;
@@ -27,37 +27,20 @@ const NavButton: React.FunctionComponent<NavButtonProps> = ({
   label,
   targetLocation,
   onPress,
-}) => {
-  return (
-    <Pressable
-      onPress={() => onPress(targetLocation)}
-      style={{
-        flexGrow: 1,
-        flexDirection: "column",
-        alignItems: "center",
-        cursor: "pointer",
-      }}
-    >
-      <Icon style={{ width: 24, height: 24, color: colours.yellow }} />
-      <Text style={{ color: colours.white, fontWeight: "500", marginTop: 4 }}>
-        {label}
-      </Text>
-    </Pressable>
-  );
-};
-
-const StartHabitButton: React.FunctionComponent = () => (
+}) => (
   <Pressable
+    onPress={() => onPress(targetLocation)}
     style={{
+      flexGrow: 1,
+      flexDirection: "column",
+      alignItems: "center",
       cursor: "pointer",
-      background: colours.grey700,
-      borderRadius: 32,
-      padding: 16,
-      margin: -24,
-      transform: [{ translateY: -36 }],
     }}
   >
-    <PlusIcon width={28} height={28} color={colours.yellow} />
+    <Icon style={{ width: 24, height: 24, color: colours.yellow }} />
+    <Text style={{ color: colours.white, fontWeight: "500", marginTop: 4 }}>
+      {label}
+    </Text>
   </Pressable>
 );
 
@@ -68,13 +51,22 @@ const TabBar: React.FunctionComponent<
     navigation.navigate(target);
   };
 
+  const isCreateHabitFocused = state.index === 2;
+  const onPressCreateHabit = () => {
+    if (!isCreateHabitFocused) {
+      navigation.navigate("CreateHabit");
+    } else {
+      navigation.goBack();
+    }
+  };
+
   return (
     <View
       style={{
         background: colours.grey800,
         padding: 12,
         flexDirection: "row",
-        justifyContent: "space-evenly",
+        justifyContent: "space-around",
         alignItems: "center",
       }}
     >
@@ -90,6 +82,12 @@ const TabBar: React.FunctionComponent<
         targetLocation="DailyRundown"
         onPress={onPress}
       />
+
+      <CreateHabitButton
+        isFocused={isCreateHabitFocused}
+        onPress={onPressCreateHabit}
+      />
+
       <NavButton
         icon={ClipboardListIcon}
         label="Habits"
